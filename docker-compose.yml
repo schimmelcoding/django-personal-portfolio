@@ -6,11 +6,11 @@ services:
     volumes:
       - .:/django
     ports:
-      - 80:8000
-
+      - 8001:8001
+    restart: always
     image: app:django
     container_name: django_container
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8001 --insecure
     depends_on:
       - db
   db:
@@ -19,6 +19,7 @@ services:
       - ./data/db:/var/lib/postgresql/data
     ports:
       - 5432:5432
+    restart: always
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
